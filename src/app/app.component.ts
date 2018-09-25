@@ -18,19 +18,33 @@ export class AppComponent {
     detectRetina: true,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   });
+  markerMaps = marker(
+    [46.8523, -121.7603],
+    {
+      icon: icon({
+        iconSize: [90, 60],
+        iconAnchor: [90, 60],
+        iconUrl: 'leaflet/mano.png',
+        shadowUrl: 'leaflet/marker-shadow.png'
+      })
+    }
+  );
 
   // oggetto controller per i layer
   layersControl = {
     baseLayers: {
       'Street Maps': this.streetMaps,
       'Wikimedia Maps': this.wMaps
+    },
+    overlays: {
+      'Marker Maps': this.markerMaps
     }
   };
 
   // impostazioni dei layer per inizializzazione della mappa
   options = {
-    layers: [this.streetMaps],
-    zoom: 7,
+    layers: [this.streetMaps, this.markerMaps],
+    zoom: 8,
     center: latLng([46.879966, -121.726909])
   };
 }
