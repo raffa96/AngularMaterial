@@ -1,3 +1,4 @@
+import { UserdataService } from './userdata.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +26,9 @@ import { FooterComponent } from './footer/footer.component';
     MatListModule,
     LeafletModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    UserdataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
