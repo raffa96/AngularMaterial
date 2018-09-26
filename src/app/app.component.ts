@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { UserdataService } from './provider/userdata.service';
+import { UserDevice } from './class/UserDevice';
+import { Component, OnInit, Input } from '@angular/core';
 import { latLng, tileLayer, marker, icon } from 'leaflet';
 
 @Component({
@@ -6,8 +8,12 @@ import { latLng, tileLayer, marker, icon } from 'leaflet';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-material';
+
+  @Input() device: UserDevice;
+
+  constructor(private service: UserdataService) { }
 
   // definizione dei layer di base per la mappa
   streetMaps = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -47,4 +53,7 @@ export class AppComponent {
     zoom: 8,
     center: latLng([46.879966, -121.726909])
   };
+
+  ngOnInit() {
+  }
 }

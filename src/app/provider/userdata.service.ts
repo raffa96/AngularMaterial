@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { UserDevice } from './class/UserDevice';
+import { UserDevice } from '../class/UserDevice';
 
 @Injectable()
 export class UserdataService {
