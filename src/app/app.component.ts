@@ -1,6 +1,7 @@
 import { UserdataService } from './provider/userdata.service';
 import { Component, OnInit } from '@angular/core';
-import { latLng, tileLayer, marker, icon, Marker } from 'leaflet';
+import { latLng, tileLayer, marker, icon } from 'leaflet';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,6 @@ import { latLng, tileLayer, marker, icon, Marker } from 'leaflet';
 })
 export class AppComponent implements OnInit {
   title = 'angular-material';
-
-  markers: Marker[] = [];
 
   constructor(private service: UserdataService) { }
 
@@ -23,11 +22,15 @@ export class AppComponent implements OnInit {
     detectRetina: true,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   });
+  overlayMaps = L.layerGroup();
   // oggetto controller per i layer
   layersControl = {
     baseLayers: {
       'Street Maps': this.streetMaps,
       'Wikimedia Maps': this.wMaps
+    },
+    overlays: {
+      'Overlay Maps': this.overlayMaps
     }
   };
   // impostazioni dei layer per inizializzazione della mappa
@@ -58,11 +61,9 @@ export class AppComponent implements OnInit {
           [lat, lng],
           { icon: this.createIcon() }
         );
-        markerMaps.bindPopup('<p>' + id + '</p>', { autoPan: true });
-        markerMaps.bindPopup('<p>' + name + '</p>', { autoPan: true });
-        this.markers.push(markerMaps);
-
-        // console.log('working', typeof (this.markers));
+        const p = L.popup().setContent('ID: ' + id + ' - ' + 'Utente: ' + name);
+        markerMaps.bindPopup(p).openPopup();
+        markerMaps.addTo(this.overlayMaps);
       });
     });
   }
